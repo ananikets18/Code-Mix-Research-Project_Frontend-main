@@ -28,7 +28,7 @@ export const StatusProvider = ({ children }) => {
   const isMountedRef = useRef(true);
   const fetchTimeoutRef = useRef(null);
 
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000';
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://139.59.34.173.nip.io';
   const POLL_INTERVAL = 10000; // Poll every 10 seconds
 
   const fetchStatus = useCallback(async (isInitial = false) => {

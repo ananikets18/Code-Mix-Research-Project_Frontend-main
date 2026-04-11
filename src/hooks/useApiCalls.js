@@ -8,7 +8,7 @@ import { analyzeRateLimiter, translateRateLimiter } from "../utils/rateLimiter";
 
 // Environment configuration with fallback
 const API_BASE_URL =
-    process.env.REACT_APP_API_BASE_URL || "http://localhost:8000";
+    process.env.REACT_APP_API_BASE_URL || "https://139.59.34.173.nip.io";
 
 // Debounce helper
 function debounce(func, wait) {

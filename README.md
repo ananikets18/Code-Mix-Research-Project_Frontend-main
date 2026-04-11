@@ -23,22 +23,27 @@ This frontend bridges that gap by offering a clean interface to explore multilin
 
 * Node.js (v16+ recommended)
 * npm
-* Python backend API running locally
+* Backend API access (live or local)
 
 ---
 
 ## 🚀 Quick Start
 
-### 1. Start the Backend API
+### 1. Backend API
 
-**IMPORTANT:** The backend must be running before launching the frontend.
+**IMPORTANT:** The backend must be reachable before launching the frontend.
+
+Default live backend URL:
+`https://139.59.34.173.nip.io/`
+
+If you want to run the backend locally instead:
 
 ```bash
 # From the backend or parent project directory
 python api.py
 ```
 
-The API should be available at:
+Your local API should be available at:
 `http://localhost:8000`
 
 ---

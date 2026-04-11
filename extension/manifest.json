@@ -16,8 +16,7 @@
         "*://*.youtube.com/*",
         "*://*.reddit.com/*",
         "*://*.linkedin.com/*",
-        "https://139.59.34.173.nip.io/*",
-        "http://localhost:8000/*"
+        "https://139.59.34.173.nip.io/*"
     ],
     "action": {
         "default_popup": "popup.html",

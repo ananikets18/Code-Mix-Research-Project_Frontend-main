@@ -36,16 +36,6 @@ This frontend bridges that gap by offering a clean interface to explore multilin
 Default live backend URL:
 `https://139.59.34.173.nip.io/`
 
-If you want to run the backend locally instead:
-
-```bash
-# From the backend or parent project directory
-python api.py
-```
-
-Your local API should be available at:
-`http://localhost:8000`
-
 ---
 
 ### 2. Run the Frontend

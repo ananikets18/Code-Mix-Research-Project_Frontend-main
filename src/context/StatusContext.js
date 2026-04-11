@@ -29,6 +29,7 @@ export const StatusProvider = ({ children }) => {
   const fetchTimeoutRef = useRef(null);
 
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || (process.env.NODE_ENV === 'production' ? '/api' : 'https://139.59.34.173.nip.io');
+  const API_KEY = process.env.REACT_APP_API_KEY;
   const POLL_INTERVAL = 10000; // Poll every 10 seconds
 
   const fetchStatus = useCallback(async (isInitial = false) => {
@@ -47,6 +48,7 @@ export const StatusProvider = ({ children }) => {
         timeout: 20000, // Increased from 10s to 20s
         headers: {
           'Content-Type': 'application/json',
+          ...(API_KEY ? { 'x-api-key': API_KEY } : {}),
         },
         // Add cache busting to prevent stale data
         params: {
@@ -67,7 +69,7 @@ export const StatusProvider = ({ children }) => {
         setLoading(false);
       }
     }
-  }, [API_BASE_URL]);
+  }, [API_BASE_URL, API_KEY]);
 
   useEffect(() => {
     isMountedRef.current = true;

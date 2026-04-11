@@ -12,6 +12,7 @@ const API_BASE_URL =
     (process.env.NODE_ENV === "production"
         ? "/api"
         : "https://139.59.34.173.nip.io");
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 // Debounce helper
 function debounce(func, wait) {
@@ -140,6 +141,7 @@ export const useAnalyzeText = () => {
                     timeout: 45000, // Increased to 45 seconds for slow connections
                     headers: {
                         "Content-Type": "application/json",
+                        ...(API_KEY ? { "x-api-key": API_KEY } : {}),
                     },
                     cancelToken: cancelTokenSourceRef.current.token,
                     // Add retry logic
@@ -161,10 +163,17 @@ export const useAnalyzeText = () => {
             });
 
             if (response.status !== 200) {
-                let errorMsg = response.data?.error || `Server returned status ${response.status}`;
+                let errorMsg =
+                    response.data?.error ||
+                    response.data?.detail ||
+                    `Server returned status ${response.status}`;
                 
                 // Provide more helpful error messages for common status codes
-                if (response.status === 502) {
+                if (response.status === 401) {
+                    errorMsg =
+                        response.data?.detail ||
+                        "Unauthorized: API key is missing or invalid.";
+                } else if (response.status === 502) {
                     errorMsg = 'Backend server is temporarily unavailable. Please try again in a moment.';
                 } else if (response.status === 503) {
                     errorMsg = 'Service temporarily unavailable. The server may be overloaded.';
@@ -369,6 +378,7 @@ export const useTranslateText = () => {
                         timeout: 45000,
                         headers: {
                             "Content-Type": "application/json",
+                            ...(API_KEY ? { "x-api-key": API_KEY } : {}),
                         },
                         cancelToken: cancelTokenSourceRef.current.token,
                         validateStatus: (status) =>
@@ -388,10 +398,11 @@ export const useTranslateText = () => {
                 });
 
                 if (response.status !== 200) {
-                    throw new Error(
+                    const errorMsg =
                         response.data?.error ||
-                        `Server returned status ${response.status}`
-                    );
+                        response.data?.detail ||
+                        `Server returned status ${response.status}`;
+                    throw new Error(errorMsg);
                 }
 
                 CacheStorage.set(cacheKey, response.data);
